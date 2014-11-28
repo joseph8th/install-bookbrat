@@ -258,6 +258,8 @@ Now that you have `bookbrat` up and running on your dev machine, you're gonna wa
 
 **W3Schools Tutorials:** A great resource for HTML5, CSS, JavaScript, SQL, PHP and jQuery. [Click here and browse away](http://www.w3schools.com/). They also have quizzes that were great when I was taking assessments at interviews once a week.
 
+Too many "greats"? Naaahhh...
+
 ### Me
 
 Last but not least, just hit me up with any questions and I'll be happy to help. :)
