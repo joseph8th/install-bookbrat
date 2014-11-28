@@ -159,7 +159,6 @@ If all went well, you should still be able to browse to `http://localhost` and y
 
 Now we need to create a `VirtualServer` for our static app. I've included the `bookbrat.conf` file in this repository, so we'll just copy it into the `/etc/apache2/site-available` directory, like so:
 
-    $ cd ~/path/to/bookbrat_dj/install-bookbrat
     $ sudo cp ~/Dev/python/bookbrat_dj/install-bookbrat/bookbrat.conf /etc/apache2/sites-available
 
 If you read `bookbrat.conf`, you'll see a line that reads, `DocumentRoot "/var/www/bookbrat"`. We need to create this directory and create symbolic links to our app's `static` and `media` directories in it. Like so:
