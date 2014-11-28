@@ -77,6 +77,17 @@ See the [pip](http://pip.readthedocs.org/en/latest/user_guide.html#requirements-
 
 You'll see lots of warnings, but at the end it should say, "Successfully installed ..." Now the output of `pip freeze` should be identical to the `REQUIREMENTS` file.
 
+**NOTE**: testing this I noticed that a couple dependencies did not install correctly this way: `django-debug-toolbar` and `sqlparse`. If you have anything missing, just install them individually, like so:
+
+    $ pip install django-debug-toolbar sqlparse
+
+Finally, let's symlink the `virtualenv` you created earlier into your project *container* directory. (Otherwise you might forget where it is!)
+
+    $ cd ~/Dev/python/bookbrat_dj
+    $ ln -s ~/.pyenv/versions/bookbrat/* .
+
+You will now see `bin`, `include` and `lib` directories in `bookbrat_dj`.
+
 Setup Your Environment
 ----------------------
 
@@ -161,3 +172,91 @@ If you read `bookbrat.conf`, you'll see a line that reads, `DocumentRoot "/var/w
 Now Apache2 can directly access the app's static files (again, we'd never do this in production).
 
 Restart Apache2 again (`sudo service apache2 restart`) and browse to `http://bookbrat.local`. You should now see "Index of /" and our static files. Now when the web app is running it can load the CSS and any other goodies we throw in there! Wheeee!
+
+### Create Local Database
+
+Now all we need to do is pull everything together and create a local database file named `sqlite3.db` as defined in `settings.py`. Just change back to the project directory `bookbrat` and use Django's `manage.py` util:
+
+    $ cd ~/Dev/python/bookbrat_dj/bookbrat
+    $ python manage.py syncdb
+
+Django will create the `sqlite3.db` DB file and schema based on what's defined in each app's `models.py` file. The first time you run it, it will ask you to create a superuser.
+
+That's it! Your database is ready to be populated with data.
+
+You're Almost There!
+--------------------
+
+All the boring setup work is almost over. Any minute now you can start hacking on the project. Next we're going to collect the static files and run the Django development server to make sure everything is working right:
+
+    $ python manage.py collectstatic    ## say 'yes' to collect
+    $ python manage.py runserver
+
+This last command will fire up the dev server and give you an address where you can view the `bookbrat` on your machine. Any changes you make to the project's files will be reflected on reload in your browser.
+
+### Seeing Your Changes
+
+When you change the *fields* in any `models.py` file, you will need to drop that table from the DB and run `syncdb` again to regenerate the table. Changes to other parts of a model will be available on refresh.
+
+For example, in the `Book` model, if you change this:
+
+``` python
+author_ids = models.CharField(max_length=200, blank=True, null=True)
+```
+
+To this:
+
+``` python
+    author_ids = models.CharField(max_length=200)
+```
+
+Then you will have to drop the `packages_book` table and run `syncdb` again to see your changes (which would be to make `author_ids` a required, non-null field).
+
+But if you changed this:
+
+``` python
+    def save(self, *args, **kwargs):
+        self.date_added = datetime.now()
+        if not self.myprice:
+            self.myprice = 0.0
+```
+
+To this:
+
+``` python
+    def save(self, *args, **kwargs):
+        self.date_added = datetime.now()
+        if not self.myprice:
+            self.myprice = 200.0
+```
+
+Then the change would be there on refresh in your browser (which would set the price of a book to $200.00 if the `price` form field was left empty on save).
+
+Recommended Docs and Tools
+--------------------------
+
+Now that you have `bookbrat` up and running on your dev machine, you're gonna wanna hit the books. You'll also want some dev tools to play with.
+
+### Dev Tools
+
+**Web Browser:** [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/) with [Firebug Add-on](https://addons.mozilla.org/en-US/firefox/addon/firebug/) - indispensable for HTML5, CSS and JavaScript coding. Let's you shape the front-end like clay, then just copy the changes into the code-base.
+
+**SQLite3 DB Manager:** [sqliteman](http://sqliteman.yarpen.cz/) - just `apt-get install` it, point it at your `sqlite3.db` file, and go. You'll need this for dropping tables before running `syncdb`.
+
+**Integrated Development Environment:** I was forced to learn `emacs` in college, but there's a steep learning curve. At work I use [Aptana Studio 3](http://www.aptana.com/) for PHP and JavaScript, but it has support for Python as well (just point it at your `bookbrat_dj/bin/python-2.7` executable).
+
+**GitHub:** [Git](http://www.git-scm.com/) version control is vital, especially when working with others. [GitHub](https://guides.github.com/introduction/flow/index.html) has great tips on workflow that every developer needs to know.
+
+### Documentation
+
+**Python Docs:** Python has [great docs here](https://docs.python.org/2/). We're using Version 2.7.6 but the latest Python2 docs are valid.
+
+**Django Docs:** Django has [great docs here](https://docs.djangoproject.com/en/1.6/). We're using Version 1.6. Also, when I was just starting with Django, [The Django Book](http://www.djangobook.com/en/2.0/index.html) was more helpful than the docs. Funnily enough the example project they use is... a bookstore.
+
+**Stack Overflow:** And of course, search for answers and tutorials and how-tos on teh webz. 99% of the time you'll end up on [Stack Overflow](http://stackoverflow.com/).
+
+**W3Schools Tutorials:** A great resource for HTML5, CSS, JavaScript, SQL, PHP and jQuery. [Click here and browse away](http://www.w3schools.com/). They also have quizzes that were great when I was taking assessments at interviews once a week.
+
+### Me
+
+Last but not least, just hit me up with any questions and I'll be happy to help. :)
