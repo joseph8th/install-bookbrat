@@ -245,7 +245,7 @@ Now that you have `bookbrat` up and running on your dev machine, you're gonna wa
 
 **SQLite3 DB Manager:** [sqliteman](http://sqliteman.yarpen.cz/) - just `apt-get install` it, point it at your `sqlite3.db` file, and go. You'll need this for dropping tables before running `syncdb`.
 
-**Integrated Development Environment:** I was forced to learn `emacs` in college, but there's a steep learning curve. At work I use [Aptana Studio 3](http://www.aptana.com/) for PHP and JavaScript, but it has support for Python as well (just point it at your `bookbrat_dj/bin/python-2.7` executable).
+**Integrated Development Environment:** I was forced to learn `emacs` in college, but there's a steep learning curve. At work I use [Aptana Studio 3](http://www.aptana.com/) for PHP and JavaScript, but it has support for Python as well (just point it at your `bookbrat_dj/bin/python2.7` executable).
 
 **GitHub:** [Git](http://www.git-scm.com/) version control is vital, especially when working with others. [GitHub](https://guides.github.com/introduction/flow/index.html) has great tips on workflow that every developer needs to know.
 
