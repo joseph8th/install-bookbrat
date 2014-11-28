@@ -203,7 +203,7 @@ When you change the *fields* in any `models.py` file, you will need to drop that
 For example, in the `Book` model, if you change this:
 
 ``` python
-author_ids = models.CharField(max_length=200, blank=True, null=True)
+    author_ids = models.CharField(max_length=200, blank=True, null=True)
 ```
 
 To this:
