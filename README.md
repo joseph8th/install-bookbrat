@@ -101,9 +101,9 @@ Now we setup your machine to serve the web app locally. This involves:
 
 To make development easier, I've separated the `settings.py` file from the web app itself. In production, we'd use our web host's server (Apache) and database (PostgreSQL).
 
-You'll find `settings.py` in this repository. Just clone it from GitHub into your *project container* directory (i.e., `bookbrat_dj`). If you're in the `bookbrat` directory, just do:
+You'll find `settings.py` in this repository. Just clone it from GitHub into your *project container* directory (i.e., `bookbrat_dj`):
 
-    $ cd ..
+    $ cd ~/Dev/python/bookbrat_dj
     $ git clone https://github.com/joseph8th/install-bookbrat.git
 
 Now just copy `settings.py` into the `bookbrat/bookbrat` directory:
@@ -132,7 +132,7 @@ Now we'll tweak the Apache2 configuration a bit. Open the `apache2.conf` file as
 
     $ sudo $EDITOR /etc/apache2/apache2.conf
 
-Scroll down to the "Global Configuration" section and look for `# ServerName: localhost`. If you find it, just uncomment it. Otherwise, type it in at the top of the section. Save the file.
+Scroll down to the "Global Configuration" section and look for `# ServerName: localhost`. If you find it, just uncomment it (delete the '# '). Otherwise, type it in (no '#') at the top of the section and save the file.
 
 Now we're going to take ownership of the www document root, `/var/www`. We'd **never** do this on a production server, but for development it's going to save a lot of `sudo`-ing and permissions issues.
 
