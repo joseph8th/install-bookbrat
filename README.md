@@ -172,7 +172,7 @@ Next we need to enable the VirtualServer so that Apache2 can directly access the
 
     $ sudo a2ensite bookbrat
 
-Restart Apache2 again (`sudo service apache2 restart`) and browse to `http://bookbrat.local`. You should now see "Index of /" and our static files. Now when the web app is running it can load the CSS and any other goodies we throw in there! Wheeee!
+Restart Apache2 again (`sudo service apache2 restart`) and browse to `http://bookbrat.local`. You should now see `Index of /` and links to our static and media directories. Now when the web app is running it can load the CSS and any other goodies we throw in there! Wheeee!
 
 ### Create Local Database
 
