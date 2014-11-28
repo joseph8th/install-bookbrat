@@ -169,7 +169,9 @@ If you read `bookbrat.conf`, you'll see a line that reads, `DocumentRoot "/var/w
     $ ln -s ~/Dev/python/bookbrat_dj/bookbrat/bookbrat/static .
     $ ln -s ~/Dev/python/bookbrat_dj/bookbrat/bookbrat/media .
 
-Now Apache2 can directly access the app's static files (again, we'd never do this in production).
+Next we need to enable the VirtualServer so that Apache2 can directly access the app's static files (again, we'd never do this in production):
+
+    $ sudo a2ensite bookbrat
 
 Restart Apache2 again (`sudo service apache2 restart`) and browse to `http://bookbrat.local`. You should now see "Index of /" and our static files. Now when the web app is running it can load the CSS and any other goodies we throw in there! Wheeee!
 
